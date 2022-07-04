@@ -136,10 +136,10 @@ Widget defaultEmbedBuilder(BuildContext context, QuillController controller,
       return _menuOptionsForReadonlyImage(context, imageUrl, image);
     case BlockEmbed.videoType:
       final videoUrl = node.value.data;
-      if (videoUrl.contains('youtube.com') || videoUrl.contains('youtu.be')) {
-        return YoutubeVideoApp(
-            videoUrl: videoUrl, context: context, readOnly: readOnly);
-      }
+//       if (videoUrl.contains('youtube.com') || videoUrl.contains('youtu.be')) {
+//         return YoutubeVideoApp(
+//             videoUrl: videoUrl, context: context, readOnly: readOnly);
+//       }
       return VideoApp(videoUrl: videoUrl, context: context, readOnly: readOnly);
     default:
       throw UnimplementedError(
