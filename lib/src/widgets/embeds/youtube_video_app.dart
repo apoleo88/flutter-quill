@@ -2,12 +2,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../../flutter_quill.dart';
 
 class YoutubeVideoApp extends StatefulWidget {
   const YoutubeVideoApp(
       {required this.videoUrl, required this.context, required this.readOnly});
+  // this.autoPlay,
+  // this.fullScreenAllowed,
 
   final String videoUrl;
   final BuildContext context;
@@ -25,10 +28,19 @@ class _YoutubeVideoAppState extends State<YoutubeVideoApp> {
     super.initState();
     final videoId = YoutubePlayer.convertUrlToId(widget.videoUrl);
     if (videoId != null) {
+      bool fullScreenAllowed = true;
+      bool autoPlay = true;
+      YouTubeSettings? yts = Provider.of<YouTubeSettings?>(context, listen: false);
+      if(yts != null){
+        autoPlay = yts.autoPlay;
+        fullScreenAllowed = yts.fullScreenAllowed;
+      }
+
       _youtubeController = YoutubePlayerController(
         initialVideoId: videoId,
         flags: const YoutubePlayerFlags(
-          autoPlay: false,
+          autoPlay: autoPlay,
+          showLiveFullscreenButton: fullScreenAllowed,
         ),
       );
     }
@@ -77,4 +89,14 @@ class _YoutubeVideoAppState extends State<YoutubeVideoApp> {
     super.dispose();
     _youtubeController.dispose();
   }
+}
+
+class YouTubeSettings{
+  final bool autoPlay;
+  final bool fullScreenAllowed;
+
+  YouTubeSettings({
+    required this.autoPlay,
+    required this.fullScreenAllowed,
+  });
 }
