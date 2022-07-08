@@ -38,7 +38,7 @@ class _YoutubeVideoAppState extends State<YoutubeVideoApp> {
 
       _youtubeController = YoutubePlayerController(
         initialVideoId: videoId,
-        flags: const YoutubePlayerFlags(
+        flags: YoutubePlayerFlags(
           autoPlay: autoPlay,
           showLiveFullscreenButton: fullScreenAllowed,
         ),
